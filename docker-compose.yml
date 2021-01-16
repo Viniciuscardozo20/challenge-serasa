@@ -1,0 +1,20 @@
+version: "3.2"
+
+services:
+  mongo:
+    image: mongo:3.0
+    ports:
+      - "27017-27019:27017-27019"
+    environment:
+      MONGO_INITDB_ROOT_DATABASE: "root_test"
+
+  json-server:
+    image: clue/json-server
+    entrypoint: 'bash -c "json-server /negativations/db.json"'
+    restart: always
+    volumes:
+      - ./negativations.json:/negativations/db.json
+    networks:
+      back:
+        aliases:
+            - "mainframe.service.com.br"
