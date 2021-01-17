@@ -10,13 +10,13 @@ import (
 )
 
 type Negativation struct {
-	CompanyDocument  string    `json:"companyDocument"`
-	CompanyName      string    `json:"companyName"`
-	CustomerDocument string    `json:"customerDocument"`
-	Value            float64   `json:"value"`
-	Contract         string    `json:"contract"`
-	DebtDate         time.Time `json:"debtDate"`
-	InclusionDate    time.Time `json:"inclusionDate"`
+	CompanyDocument  string    `json:"companyDocument" bson:"companyDocument"`
+	CompanyName      string    `json:"companyName" bson:"companyName"`
+	CustomerDocument string    `json:"customerDocument" bson:"customerDocument"`
+	Value            float64   `json:"value" bson:"value"`
+	Contract         string    `json:"contract" bson:"contract"`
+	DebtDate         time.Time `json:"debtDate" bson:"debtDate"`
+	InclusionDate    time.Time `json:"inclusionDate" bson:"inclusionDate"`
 }
 
 type Negativations struct {

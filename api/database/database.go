@@ -3,6 +3,7 @@ package database
 import (
 	"fmt"
 
+	"github.com/pkg/errors"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -16,12 +17,12 @@ func NewDatabase(config Config) (Database, error) {
 		ApplyURI(fmt.Sprintf("mongodb://%s:%d/?connect=direct", config.Host, config.Port)),
 	)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "failed to init database")
 	}
-	err = client.Ping(nil, nil)
-	if err != nil {
-		return nil, err
-	}
+	// err = client.Ping(nil, nil)
+	// if err != nil {
+	// 	return nil, err
+	// }
 	return &driver{db: client.Database(config.Database)}, nil
 }
 

@@ -1,7 +1,7 @@
 package mainframe
 
 import (
-	"challenge-serasa/helper_tests/mainframe"
+	"challenge-serasa/api/helper_tests/mainframe"
 	"testing"
 	"time"
 
