@@ -3,7 +3,7 @@ package database
 import (
 	"testing"
 
-	. "challenge-serasa/api/helper_tests/database"
+	. "challenge-serasa/api/helper_tests/h_database"
 
 	. "github.com/onsi/gomega"
 	"go.mongodb.org/mongo-driver/bson"

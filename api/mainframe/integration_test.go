@@ -1,7 +1,7 @@
 package mainframe
 
 import (
-	"challenge-serasa/api/helper_tests/mainframe"
+	"challenge-serasa/api/helper_tests/h_mainframe"
 	"testing"
 	"time"
 
@@ -35,7 +35,7 @@ func TestCreateNavigation(t *testing.T) {
 func TestGetNavigationsFromValidURL(t *testing.T) {
 	g := NewGomegaWithT(t)
 
-	server := mainframe.MockMainframeServer(g)
+	server := h_mainframe.MockMainframeServer(g)
 
 	navigations, err := GetNegativations(server.URL)
 	g.Expect(err).Should(BeNil())

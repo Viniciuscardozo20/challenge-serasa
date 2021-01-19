@@ -31,7 +31,7 @@ func newCollection(name string, db mongo.Database) (*collection, error) {
 		_, err = coll.Indexes().CreateOne(
 			context.Background(),
 			mongo.IndexModel{
-				Keys:    bson.D{{Key: "customerDocument", Value: 1}},
+				Keys:    bson.D{{Key: "contract", Value: 1}},
 				Options: options.Index().SetUnique(true),
 			},
 		)
@@ -59,15 +59,15 @@ func (c *collection) SaveDocuments(negativations []mainframe.Negativation) error
 	return nil
 }
 
-func (c *collection) GetDocument(value interface{}, field string) (*mainframe.Negativation, error) {
-	result := c.coll.FindOne(nil, bson.M{field: value})
+func (c *collection) GetDocuments(value interface{}, field string) (*[]mainframe.Negativation, error) {
+	result, err := c.coll.Find(nil, bson.M{field: value})
 	if result.Err() != nil {
-		return nil, errors.Wrap(result.Err(), "failed to find document")
+		return nil, errors.Wrap(result.Err(), "failed to find documents")
 	}
-	var negativation mainframe.Negativation
-	err := result.Decode(&negativation)
+	var negativations []mainframe.Negativation
+	result.All(nil, &negativations)
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to decode document")
+		return nil, errors.Wrap(err, "failed to decode documents")
 	}
-	return &negativation, nil
+	return &negativations, nil
 }

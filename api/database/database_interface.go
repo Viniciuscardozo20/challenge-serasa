@@ -8,5 +8,5 @@ type Database interface {
 
 type Collection interface {
 	SaveDocuments(negativations []mainframe.Negativation) error
-	GetDocument(value interface{}, field string) (*mainframe.Negativation, error)
+	GetDocuments(value interface{}, field string) (*[]mainframe.Negativation, error)
 }

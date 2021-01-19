@@ -19,10 +19,6 @@ type Negativation struct {
 	InclusionDate    time.Time `json:"inclusionDate" bson:"inclusionDate"`
 }
 
-type Negativations struct {
-	Negativations []Negativations `json:"negativations"`
-}
-
 func GenerateNegativation(companyDocument, companyName, customerDocument string, value float64, contract string, debtDate, inclusionDate time.Time) *Negativation {
 	return &Negativation{
 		CompanyDocument:  companyDocument,
