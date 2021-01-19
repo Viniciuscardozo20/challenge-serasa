@@ -59,7 +59,7 @@ func (c *collection) SaveDocuments(negativations []mainframe.Negativation) error
 	return nil
 }
 
-func (c *collection) GetDocuments(value interface{}, field string) (*[]mainframe.Negativation, error) {
+func (c *collection) GetDocuments(value interface{}, field string) ([]mainframe.Negativation, error) {
 	result, err := c.coll.Find(nil, bson.M{field: value})
 	if result.Err() != nil {
 		return nil, errors.Wrap(result.Err(), "failed to find documents")
@@ -69,5 +69,5 @@ func (c *collection) GetDocuments(value interface{}, field string) (*[]mainframe
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to decode documents")
 	}
-	return &negativations, nil
+	return negativations, nil
 }

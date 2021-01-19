@@ -40,7 +40,7 @@ func TestCollection(t *testing.T) {
 		g.Expect(err).ShouldNot(HaveOccurred())
 		documents, err := intfColl.GetDocuments("25124543043", "customerDocument")
 		g.Expect(err).ShouldNot(HaveOccurred())
-		g.Expect(&(*documents)[0]).Should(PointTo(MatchAllFields(Fields{
+		g.Expect(&documents[0]).Should(PointTo(MatchAllFields(Fields{
 			"CompanyDocument":  BeEquivalentTo("70170935000100"),
 			"CompanyName":      BeEquivalentTo("ASD S.A."),
 			"CustomerDocument": BeEquivalentTo("25124543043"),
@@ -62,7 +62,7 @@ func TestCollection(t *testing.T) {
 		g.Expect(err).ShouldNot(HaveOccurred())
 		documents, err := intfColl.GetDocuments("25124543043", "customerDocument")
 		g.Expect(err).ShouldNot(HaveOccurred())
-		for _, d := range *documents {
+		for _, d := range documents {
 			if "d6628a0e-d4dd-4f14-8591-2ddc7f1bbeff" == d.Contract {
 				g.Expect(&d).Should(PointTo(MatchAllFields(Fields{
 					"CompanyDocument":  BeEquivalentTo("70170935000100"),
@@ -94,7 +94,7 @@ func TestCollection(t *testing.T) {
 		err = intfColl.SaveDocuments([]mainframe.Negativation{fakeNegativation("5f206825-3cfe-412f-8302-cc1b24a179b0")})
 		g.Expect(err).ShouldNot(HaveOccurred())
 		nav, err := intfColl.GetDocuments("26658236674", "customerDocument")
-		g.Expect(*nav).Should(BeEmpty())
+		g.Expect(nav).Should(BeEmpty())
 		g.Expect(err).Should(BeNil())
 	})
 

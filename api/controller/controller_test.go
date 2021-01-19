@@ -26,7 +26,7 @@ func TestController(t *testing.T) {
 	g.Expect(db).ShouldNot(BeNil())
 	intfColl, err := db.Collection(testCollection)
 	g.Expect(err).ShouldNot(HaveOccurred())
-	controller := NewController(intfColl, server.URL)
+	controller := NewController(intfColl, server.URL, "password")
 
 	t.Run("validate update negativations", func(t *testing.T) {
 		coll.DeleteMany(nil, bson.M{})
@@ -40,7 +40,7 @@ func TestController(t *testing.T) {
 		g.Expect(err).ShouldNot(HaveOccurred())
 		navs, err := controller.GetNegativationByCustomer("51537476467")
 		g.Expect(err).ShouldNot(HaveOccurred())
-		for _, d := range *navs {
+		for _, d := range navs {
 			if "bc063153-fb9e-4334-9a6c-0d069a42065b" == d.Contract {
 				g.Expect(&d).Should(PointTo(MatchAllFields(Fields{
 					"CompanyDocument":  BeEquivalentTo("59291534000167"),
