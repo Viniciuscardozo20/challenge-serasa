@@ -93,6 +93,7 @@ METÓDO `GET`
 No terminal execute
 
     curl --location --request GET 'http://localhost:8082/v1/negativations/62824334010'
+    --header 'Token: token-recebido' \
 
 Ou em alguma outra interface preferência, tipo Postman ou Insomnia por exemplo
 
