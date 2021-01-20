@@ -40,7 +40,11 @@ func (c *Controller) UpdateNegativations() error {
 }
 
 func (c *Controller) GetNegativationByCustomer(customerDocument string) ([]mainframe.Negativation, error) {
-	negativations, err := c.coll.GetDocuments(customerDocument, "customerDocument")
+	encryptedCustomer, err := cryptoModule.Encrypt([]byte(customerDocument), c.passphrase)
+	if err != nil {
+		return nil, err
+	}
+	negativations, err := c.coll.GetDocuments(encryptedCustomer, "customerDocument")
 	if err != nil {
 		return nil, err
 	}
@@ -52,7 +56,11 @@ func (c *Controller) GetNegativationByCustomer(customerDocument string) ([]mainf
 }
 
 func (c *Controller) Login(customerDocument string) (string, error) {
-	n, err := c.coll.GetDocuments(customerDocument, "customerDocument")
+	encryptedCustomer, err := cryptoModule.Encrypt([]byte(customerDocument), c.passphrase)
+	if err != nil {
+		return "", err
+	}
+	n, err := c.coll.GetDocuments(encryptedCustomer, "customerDocument")
 	if err != nil || len(n) == 0 {
 		return "", err
 	}
@@ -85,11 +93,15 @@ func (c *Controller) encryptNegativations(data []mainframe.Negativation) ([]main
 		if err != nil {
 			return nil, err
 		}
+		customerDocument, err := cryptoModule.Encrypt([]byte(negativation.CustomerDocument), c.passphrase)
+		if err != nil {
+			return nil, err
+		}
 		contract, err := cryptoModule.Encrypt([]byte(negativation.Contract), c.passphrase)
 		if err != nil {
 			return nil, err
 		}
-		encryptedNegativation := mainframe.GenerateNegativation(companyDocument, companyName, negativation.CustomerDocument, negativation.Value, contract, negativation.DebtDate, negativation.InclusionDate)
+		encryptedNegativation := mainframe.GenerateNegativation(companyDocument, companyName, customerDocument, negativation.Value, contract, negativation.DebtDate, negativation.InclusionDate)
 		encryptedNegativations = append(encryptedNegativations, *encryptedNegativation)
 	}
 	return encryptedNegativations, nil
@@ -106,11 +118,15 @@ func (c *Controller) decryptNegativations(data []mainframe.Negativation) ([]main
 		if err != nil {
 			return nil, err
 		}
+		customerDocument, err := cryptoModule.Decrypt(negativation.CustomerDocument, c.passphrase)
+		if err != nil {
+			return nil, err
+		}
 		contract, err := cryptoModule.Decrypt(negativation.Contract, c.passphrase)
 		if err != nil {
 			return nil, err
 		}
-		decryptedNegativation := mainframe.GenerateNegativation(companyDocument, companyName, negativation.CustomerDocument, negativation.Value, contract, negativation.DebtDate, negativation.InclusionDate)
+		decryptedNegativation := mainframe.GenerateNegativation(companyDocument, companyName, customerDocument, negativation.Value, contract, negativation.DebtDate, negativation.InclusionDate)
 		decryptedNegativations = append(decryptedNegativations, *decryptedNegativation)
 	}
 	return decryptedNegativations, nil

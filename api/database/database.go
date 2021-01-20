@@ -19,10 +19,10 @@ func NewDatabase(config Config) (Database, error) {
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to init database")
 	}
-	// err = client.Ping(nil, nil)
-	// if err != nil {
-	// 	return nil, err
-	// }
+	err = client.Ping(nil, nil)
+	if err != nil {
+		return nil, errors.Wrap(err, "fail no ping")
+	}
 	return &driver{db: client.Database(config.Database)}, nil
 }
 

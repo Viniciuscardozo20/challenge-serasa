@@ -48,7 +48,7 @@ func newCollection(name string, db mongo.Database) (*collection, error) {
 
 func (c *collection) SaveDocuments(negativations []mainframe.Negativation) error {
 	for _, negativation := range negativations {
-		result := c.coll.FindOneAndUpdate(nil, bson.M{"customerDocument": negativation.CustomerDocument}, bson.M{"$set": negativation})
+		result := c.coll.FindOneAndUpdate(nil, bson.M{"contract": negativation.Contract}, bson.M{"$set": negativation})
 		if result.Err() != nil {
 			_, err := c.coll.InsertOne(nil, negativation)
 			if err != nil {

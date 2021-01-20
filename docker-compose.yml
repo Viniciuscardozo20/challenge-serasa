@@ -1,20 +1,43 @@
 version: "3.2"
 
 services:
+
+  json-server:
+    image: clue/json-server
+    ports:
+      - "3000:3000"
+    entrypoint: 'bash -c "json-server /data/db.json"'
+    restart: always
+    volumes:
+      - ./negativations.json:/data/db.json
+    networks:
+      back:
+        aliases:
+            - "mainframe.com.br"
+
   mongo:
     image: mongo:3.0
     ports:
       - "27017-27019:27017-27019"
     environment:
       MONGO_INITDB_ROOT_DATABASE: "root_test"
-
-  json-server:
-    image: clue/json-server
-    entrypoint: 'bash -c "json-server /negativations/db.json"'
-    restart: always
-    volumes:
-      - ./negativations.json:/negativations/db.json
     networks:
       back:
         aliases:
-            - "mainframe.service.com.br"
+            - "mongo.service.com.br"    
+
+  challenge-serasa:
+    depends_on: 
+      - mongo
+      - json-server
+    build: ./
+    restart: always
+    ports:
+      - "8082:8082"
+    networks:
+      back:
+        aliases:
+          - "challenge-serasa.service.com.br"      
+
+networks:
+  back:            

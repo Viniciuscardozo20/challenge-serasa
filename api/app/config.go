@@ -48,8 +48,8 @@ func configSample() Config {
 	return Config{
 		Passphrase:   "password",
 		Key:          "secretkey",
-		MainframeUrl: "http://mainframe.service.com.br:5000",
-		Port:         9000,
+		MainframeUrl: "http://mainframe.com.br:5000/negativations",
+		Port:         8082,
 		Database: Database{
 			Config: database.Config{
 				Host:     "http://mongo.service.com.br",

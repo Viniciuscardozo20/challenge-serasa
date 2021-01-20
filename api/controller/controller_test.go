@@ -26,7 +26,7 @@ func TestController(t *testing.T) {
 	g.Expect(db).ShouldNot(BeNil())
 	intfColl, err := db.Collection(testCollection)
 	g.Expect(err).ShouldNot(HaveOccurred())
-	controller := NewController(intfColl, server.URL, "password", "secretkey")
+	controller := NewController(intfColl, server.URL, "secretpassphrase", "secretkey")
 
 	t.Run("validate update negativations", func(t *testing.T) {
 		coll.DeleteMany(nil, bson.M{})

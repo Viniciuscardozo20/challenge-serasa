@@ -87,6 +87,19 @@ func TestCollection(t *testing.T) {
 		}
 	})
 
+	t.Run("validate update negativation", func(t *testing.T) {
+		intfColl, err := db.Collection(testCollection)
+		g.Expect(err).ShouldNot(HaveOccurred())
+		coll.DeleteMany(nil, bson.M{})
+		err = intfColl.SaveDocuments([]mainframe.Negativation{fakeNegativation("d6628a0e-d4dd-4f14-8591-2ddc7f1bbeff")})
+		g.Expect(err).ShouldNot(HaveOccurred())
+		err = intfColl.SaveDocuments([]mainframe.Negativation{fakeNegativation("d6628a0e-d4dd-4f14-8591-2ddc7f1bbeff")})
+		g.Expect(err).ShouldNot(HaveOccurred())
+		documents, err := intfColl.GetDocuments("25124543043", "customerDocument")
+		g.Expect(err).ShouldNot(HaveOccurred())
+		g.Expect(len(documents)).Should(BeEquivalentTo(1))
+	})
+
 	t.Run("validate read nonexistent document", func(t *testing.T) {
 		intfColl, err := db.Collection(testCollection)
 		g.Expect(err).ShouldNot(HaveOccurred())

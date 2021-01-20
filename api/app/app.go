@@ -4,6 +4,7 @@ import (
 	"challenge-serasa/api/controller"
 	"challenge-serasa/api/database"
 	"challenge-serasa/api/handlers/integration"
+	"challenge-serasa/api/handlers/login"
 	"challenge-serasa/api/handlers/negativations"
 
 	httping "github.com/ednailson/httping-go"
@@ -45,6 +46,8 @@ func (a *App) Close() {
 
 func loadServer(ctrl *controller.Controller) httping.IServer {
 	server := httping.NewHttpServer("", 8082)
+	loginHandler := login.NewHandler(*ctrl)
+	server.NewRoute(nil, "/v1/login").POST(loginHandler.Handle)
 	integrationHandler := integration.NewHandler(*ctrl)
 	server.NewRoute(nil, "/v1/integration").POST(integrationHandler.Handle)
 	negativationsHandler := negativations.NewHandler(*ctrl)
