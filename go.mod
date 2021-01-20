@@ -3,6 +3,7 @@ module challenge-serasa
 go 1.15
 
 require (
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/ednailson/httping-go v0.15.0
 	github.com/micro/go-micro v1.18.0
 	github.com/onsi/gomega v1.10.4

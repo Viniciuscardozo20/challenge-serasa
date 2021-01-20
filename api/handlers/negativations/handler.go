@@ -15,8 +15,15 @@ func NewHandler(ctl controller.Controller) *Handler {
 }
 
 func (c *Handler) Handle(request httping.HttpRequest) httping.IResponse {
+	if len(request.Headers["Token"]) == 0 {
+		return httping.Unauthorized(map[string]string{"status": "unauthorized"})
+	}
 	if request.Params["customerDocument"] == "" {
 		return httping.BadRequest(map[string]string{"customerDocument": "the field currency is required"})
+	}
+	err := c.ctl.TokenValid(request.Headers["Token"][0])
+	if err != nil {
+		return httping.Unauthorized(map[string]string{"error": "Token not valid"})
 	}
 	negativations, err := c.ctl.GetNegativationByCustomer(request.Params["customerDocument"])
 	if err != nil {

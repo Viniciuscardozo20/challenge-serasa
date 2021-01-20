@@ -9,6 +9,7 @@ import (
 
 type Config struct {
 	Passphrase   string   `json:"passphrase"`
+	Key          string   `json:"key"`
 	MainframeUrl string   `json:"mainframeUrl"`
 	Port         int      `json:"port"`
 	Database     Database `json:"database"`
@@ -46,6 +47,7 @@ func generateConfigFile(filename string, config Config) error {
 func configSample() Config {
 	return Config{
 		Passphrase:   "password",
+		Key:          "secretkey",
 		MainframeUrl: "http://mainframe.service.com.br:5000",
 		Port:         9000,
 		Database: Database{

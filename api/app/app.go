@@ -25,7 +25,7 @@ func LoadApp(cfg Config) (*App, error) {
 	if err != nil {
 		return nil, err
 	}
-	controller := controller.NewController(negativationColl, cfg.MainframeUrl, cfg.Passphrase)
+	controller := controller.NewController(negativationColl, cfg.MainframeUrl, cfg.Passphrase, cfg.Key)
 	app.server = loadServer(controller)
 	return &app, nil
 }

@@ -12,7 +12,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-const testCollection = "dummy-collection"
+const testCollection = "dummy-collection-1"
 
 func TestController(t *testing.T) {
 	g := NewGomegaWithT(t)
@@ -26,12 +26,21 @@ func TestController(t *testing.T) {
 	g.Expect(db).ShouldNot(BeNil())
 	intfColl, err := db.Collection(testCollection)
 	g.Expect(err).ShouldNot(HaveOccurred())
-	controller := NewController(intfColl, server.URL, "password")
+	controller := NewController(intfColl, server.URL, "password", "secretkey")
 
 	t.Run("validate update negativations", func(t *testing.T) {
 		coll.DeleteMany(nil, bson.M{})
 		err := controller.UpdateNegativations()
 		g.Expect(err).ShouldNot(HaveOccurred())
+	})
+
+	t.Run("validate login", func(t *testing.T) {
+		coll.DeleteMany(nil, bson.M{})
+		err := controller.UpdateNegativations()
+		g.Expect(err).ShouldNot(HaveOccurred())
+		token, err := controller.Login("51537476467")
+		g.Expect(err).ShouldNot(HaveOccurred())
+		g.Expect(token).ShouldNot(BeEmpty())
 	})
 
 	t.Run("validate update and read negativations", func(t *testing.T) {
