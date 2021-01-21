@@ -1,0 +1,16 @@
+{
+  "passphrase": "secretpassphrase",
+  "key": "secretkey",
+  "mainframeUrl": "http://mainframe.com.br:3000/negativations",
+  "port": 8082,
+  "database": {
+    "config": {
+      "host": "mongo.service.com.br",
+      "port": 27017,
+      "user": "root",
+      "password": "123qwe",
+      "database": "serasa-db"
+    },
+    "negativation_collection": "negativation-collection"
+  }
+}
