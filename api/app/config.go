@@ -46,9 +46,9 @@ func generateConfigFile(filename string, config Config) error {
 
 func configSample() Config {
 	return Config{
-		Passphrase:   "password",
+		Passphrase:   "secretpassphrase",
 		Key:          "secretkey",
-		MainframeUrl: "http://mainframe.com.br:5000/negativations",
+		MainframeUrl: "http://mainframe.com.br:3000/negativations",
 		Port:         8082,
 		Database: Database{
 			Config: database.Config{
