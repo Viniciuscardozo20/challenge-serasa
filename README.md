@@ -30,7 +30,7 @@ METÓDO `POST`v1/
 
 No terminal execute
 
-    curl --location --request POST 'http://localhost:8082/v1/integration' \
+    curl -XPOST 'http://localhost:8082/v1/integration'
 
 Ou em alguma outra interface preferência, tipo Postman ou Insomnia por exemplo
 
@@ -53,11 +53,7 @@ METÓDO `POST`v1/
 
 No terminal execute
 
-    curl --location --request POST 'http://localhost:8082/v1/login' \
-    --header 'Content-Type: application/json' \
-    --data-raw '{
-        "customerDocument":"62824334010", 
-      }'
+    curl -XPOST -H "Content-type: application/json" -d '{"customerDocument":"62824334010"}' 'http://localhost:8082/v1/login''
 
 Ou em alguma outra interface preferência, tipo Postman ou Insomnia por exemplo
 
@@ -92,8 +88,7 @@ METÓDO `GET`
 
 No terminal execute
 
-    curl --location --request GET 'http://localhost:8082/v1/negativations/62824334010'
-    --header 'Token: token-recebido' \
+    curl -XGET -H 'Token: token-recebido' 'http://localhost:8082/v1/negativations/62824334010'
 
 Ou em alguma outra interface preferência, tipo Postman ou Insomnia por exemplo
 
