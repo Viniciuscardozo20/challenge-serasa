@@ -126,14 +126,14 @@ A saída esperada será a seguinte:
 
     
       go test -race -coverpkg= ./... -coverprofile=./test/cover/cover.out
-      ?       challenge-serasa/api/app        [no test files]
-      ok      challenge-serasa/api/controller 0.434s  coverage: 67.6% of statements
-      ok      challenge-serasa/api/controller/auth    0.029s  coverage: 52.9% of statements
-      ok      challenge-serasa/api/controller/cryptoModule    0.030s  coverage: 71.4% of statements
-      ok      challenge-serasa/api/database   0.484s  coverage: 81.6% of statements
+      ok      challenge-serasa/api/app        0.152s  coverage: 53.8% of statements
+      ok      challenge-serasa/api/controller 1.256s  coverage: 67.6% of statements
+      ok      challenge-serasa/api/controller/auth    0.030s  coverage: 52.9% of statements
+      ok      challenge-serasa/api/controller/cryptoModule    0.029s  coverage: 71.4% of statements
+      ok      challenge-serasa/api/database   1.240s  coverage: 81.6% of statements
       ?       challenge-serasa/api/handlers/integration       [no test files]
       ?       challenge-serasa/api/handlers/login     [no test files]
       ?       challenge-serasa/api/handlers/negativations     [no test files]
       ?       challenge-serasa/api/helper_tests/h_database    [no test files]
       ?       challenge-serasa/api/helper_tests/h_mainframe   [no test files]
-      ok      challenge-serasa/api/mainframe  0.029s  coverage: 83.3% of statements
+      ok      challenge-serasa/api/mainframe  0.032s  coverage: 83.3% of statements
