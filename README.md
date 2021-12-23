@@ -32,9 +32,9 @@ No terminal execute
 
     curl -XPOST 'http://localhost:8082/v1/integration'
 
-Ou em alguma outra interface preferência, tipo Postman ou Insomnia por exemplo
+Ou em alguma outra interface preferência, por exemplo o Postman ou Insomnia
 
-Saída esperada
+Saída esperada:
 
 _Status http_: `200 OK`
 ```json
